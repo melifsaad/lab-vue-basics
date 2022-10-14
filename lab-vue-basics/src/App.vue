@@ -2,21 +2,14 @@
   <Navbar />
   <div class="separation"></div>
   <h1>APP</h1>
-
   {{2+2}}
   <br>
-  {{sumar()}}
+  {{Hola()}}
   <br>
-
-  <form>
-    <div class="inputName">
-      <input v-if="form.name.error" id="input" type="text" placeholder="Name Ok">
-      <h2 v-else> Oh no 😢</h2>
-      <input id="submit" @submit.prevent="onSubmit()" type="submit" placeholder="submit">
-    </div>
-  </form>
-
-  <!-- <h1 v-show="ok">Hola!</h1> -->
+  <div v-if="isRender"></div>
+  <div v-for="obj in data">{{obj.title}},{{obj.description}},{{obj.content}}</div>
+  <div :class="{color: colorChange}">Color</div>
+  <button @click="onClick">Click</button>
   <div class="separation"></div>
   <Footer />
 </template>
@@ -26,22 +19,35 @@ import Navbar from './components/navbar.vue';
 import Footer from './components/footer.vue';
 import { ref } from 'vue';
 
-const sumar = () => {
+const Hola = () => {
   return "Hola Mundo"
 }
 
-const form = ref({
-  name: {
-    content: "",
-    error: false
-  },
-})
+const isRender = true
 
-const onSubmit = () => {
-  console.log(form.value)
-  if (form.value.name.content.length === 0) form.value.name.error = true;
-  else form.value.name.error = false;
-}
+const data = [
+  {
+    title: 'Notebook',
+    description: 'Romance',
+    content: 'Historia de amor'
+  },
+  {
+    title: 'Guerra de las Galaxias',
+    description: 'Ficcion',
+    content: 'Mundos'
+  },
+  {
+    title: 'Hannibal',
+    description: 'Suspense',
+    content: 'Canibalismo'
+  }
+];
+
+const colorChange = ref(false)
+const onClick = () => {
+  colorChange.value = !colorChange.value
+};
+
 </script>
 
 <style scoped>
@@ -59,5 +65,9 @@ h1 {
 .separation {
   background-color: rgb(252, 81, 1);
   padding: 1px;
+}
+
+.color {
+  background-color: red;
 }
 </style>
